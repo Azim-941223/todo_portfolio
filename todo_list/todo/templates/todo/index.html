@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block form %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.title }}
+        <input type="submit" value="Добавить" class="addBtn">
+    </form>
+{% endblock form %}
+{% block content %}
+    {% for message in messages %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for todo in todos %}
+        <ul id="myUL">
+            {% if not todo.complete %}
+                <li>
+                    <span>{{ todo.title }}</span>
+                    <a href="{% url 'update' todo.pk %}" class="btn btn-primary">Редактировать</a>
+                    <a href="{% url 'delete' todo.pk %}" class="btn btn-primary">&#128465;&#65039;</a>
+                    <a href="{% url 'complete' todo.pk %}" class="btn btn-primary">&#10003;</a>
+                </li>
+            {% else %}
+                <li class="checked">
+                    <span>{{ todo.title }}</span>
+                    <a href="{% url 'update' todo.pk %}" class="btn btn-primary">Редактировать</a>
+                    <a href="{% url 'delete' todo.pk %}" class="btn btn-primary">&#128465;&#65039;</a>
+                    <a href="{% url 'un_complete' todo.pk %}" class="btn btn-primary">&#10003;</a>
+                </li>
+            {% endif %}
+        </ul>
+    {% empty %}
+        <h1>Задач нет!</h1>
+    {% endfor %}
+{% endblock content %}

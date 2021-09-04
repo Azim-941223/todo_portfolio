@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div id="myDIV" class="header">
+        <h2>Редактирование</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.title }}
+            <input type="submit" value="Обновить" class="addBtn">
+        </form>
+    </div>
+{% endblock content %}
